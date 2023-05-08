@@ -1,0 +1,57 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		
+{
+	"type": "shell",
+	"label": "Set dependencies for build",
+	"command": "if not exist ${config:buildDir} mkdir ${config:buildDir}"
+  },
+  {
+	"label": "C/C++: cl.exe build active file",
+	"detail": "Compile and build selected C++ project with Visual Studio cl.exe",
+	"type": "shell",
+	"command": "${config:buildCommand}",
+	"args": [
+	  "/Zi",
+	  "/EHsc",
+	  "/Fe:",
+	  "${config:buildDir}\\${fileBasenameNoExtension}.exe",
+	  "/Fo${config:buildDir}\\",
+	  "/Fd${config:buildDir}\\",
+	  "${file}"     
+	],
+	"options": {
+	  "cwd": "${workspaceFolder}"
+	},
+	"problemMatcher": ["$msCompile"],
+	"group": {
+	  "kind": "build",
+	  "isDefault": true
+	},
+	"dependsOn": [
+	  "Set dependencies for build"
+	]
+  },
+		{
+			"type": "cppbuild",
+			"label": "C/C++: cl.exe сборка активного файла",
+			"command": "cl.exe",
+			"args": [
+				"/Zi",
+				"/EHsc",
+				"/nologo",
+				"/Fe${fileDirname}\\${fileBasenameNoExtension}.exe",
+				"${file}"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build",
+			"detail": "компилятор: cl.exe"
+		}
+	]
+}
